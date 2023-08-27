@@ -6,6 +6,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { MoreVertical } from 'lucide-react'
 import { DeleteRoom } from './DeleteRoom'
+import { EditRoom } from './EditRoom'
 
 export const CardActions = ({
 	roomID,
@@ -23,6 +24,7 @@ export const CardActions = ({
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='flex flex-col'>
 				<DeleteRoom roomID={roomID} imageName={imageName} />
+				<EditRoom />
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)

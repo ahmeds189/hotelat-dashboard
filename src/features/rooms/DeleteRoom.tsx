@@ -35,7 +35,7 @@ export const DeleteRoom = ({
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<Button variant='destructive' className='gap-3'>
+				<Button variant='destructive' className='gap-4 justify-start'>
 					<Trash2 />
 					Delete
 				</Button>
