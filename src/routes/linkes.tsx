@@ -1,6 +1,19 @@
-import { LayoutGrid, CalendarRange, BedDouble, Users2, Settings } from 'lucide-react'
+import {
+	LayoutGrid,
+	CalendarRange,
+	BedDouble,
+	Users2,
+	Settings,
+} from 'lucide-react'
+import { ReactElement } from 'react'
 
-export const overview = [
+export interface Routes {
+	path: string
+	id: number
+	icon: ReactElement
+}
+
+export const overview: Routes[] = [
 	{
 		path: 'Dashboard',
 		id: 1,
@@ -18,7 +31,7 @@ export const overview = [
 	},
 ]
 
-export const management = [
+export const management: Routes[] = [
 	{
 		path: 'staff',
 		id: 4,

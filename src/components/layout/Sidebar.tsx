@@ -1,21 +1,26 @@
-// @ts-nocheck
-
 import { Link, NavLink } from 'react-router-dom'
 import { overview, management } from '@/routes/linkes'
 import { cn } from '@/lib/utils'
 import { useTheme } from '@/context/Theme'
+import { Routes } from '@/routes/linkes'
 
-const LinkesList = ({ heading, links }: LinksProps) => {
+interface ListProps {
+	heading: string
+	links: Routes[]
+}
+
+const LinkesList = ({ heading, links }: ListProps) => {
 	const { setSheetDisply } = useTheme()
 	return (
 		<ul className='mb-6'>
 			<li className='text-gray-500 mb-4 text-sm'>{heading}</li>
+
 			<ul className='flex flex-col gap-2'>
-				{links.map((route: any) => (
+				{links.map((route: Routes) => (
 					<li key={route.id}>
 						<NavLink
 							onClick={() => setSheetDisply(false)}
-							className='text-gray-500 flex items-center gap-4 rounded-md px-2 py-3 capitalize transition-colors dark:text-gray-400 [&.active]:text-indigo-500 hover:bg-gray-500/10 [&.active]:bg-indigo-500/10 [&.active]:hover:bg-indigo-500/20'
+							className='flex items-center gap-4 rounded-md px-2 py-3 capitalize transition-colors text-muted-foreground [&.active]:text-indigo-500 hover:bg-gray-500/10 [&.active]:bg-indigo-500/10 [&.active]:hover:bg-indigo-500/20'
 							to={route.path}
 						>
 							{route.icon}
@@ -28,7 +33,7 @@ const LinkesList = ({ heading, links }: LinksProps) => {
 	)
 }
 
-export const Sidebar = ({ className }: any) => {
+export const Sidebar = ({ className }: { className?: string }) => {
 	const { setSheetDisply } = useTheme()
 
 	return (
