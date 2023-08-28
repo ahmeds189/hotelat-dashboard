@@ -42,7 +42,7 @@ export const DeleteRoom = ({ roomID, imageName }: Props) => {
 						variant='destructive'
 						onClick={() => mutate()}
 						disabled={isLoading}
-						className={`${isLoading ? 'flex items-center gap-3' : ''}`}
+						className={`${isLoading ? 'flex items-center gap-3' : null}`}
 					>
 						{isLoading && <Loader className='animate-spin' />}
 						Continue

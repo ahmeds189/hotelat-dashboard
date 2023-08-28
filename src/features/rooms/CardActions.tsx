@@ -8,13 +8,12 @@ import { MoreVertical } from 'lucide-react'
 import { DeleteRoom } from './DeleteRoom'
 import { EditRoom } from './EditRoom'
 
-export const CardActions = ({
-	roomID,
-	imageName,
-}: {
+interface Props {
 	roomID: number
 	imageName: string
-}) => {
+}
+
+export const CardActions = ({ roomID, imageName }: Props) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
