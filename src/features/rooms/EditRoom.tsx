@@ -3,9 +3,8 @@ import { Button } from '@/components/ui/button'
 import { Settings2 } from 'lucide-react'
 import { RoomForm } from './RoomForm'
 import { useTheme } from '@/context/Theme'
-import { Room } from './api'
 
-export const EditRoom = ({ roomToEdit }: { roomToEdit: Room }) => {
+export const EditRoom = () => {
 	const { dialogDisplay, setDialogDisplay } = useTheme()
 
 	return (
@@ -17,7 +16,7 @@ export const EditRoom = ({ roomToEdit }: { roomToEdit: Room }) => {
 				</Button>
 			</DialogTrigger>
 			<DialogContent className='w-[95vw] rounded-md'>
-				<RoomForm defaultValues={roomToEdit} />
+				<RoomForm />
 			</DialogContent>
 		</Dialog>
 	)

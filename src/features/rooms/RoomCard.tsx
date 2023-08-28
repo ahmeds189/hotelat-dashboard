@@ -13,7 +13,6 @@ export const RoomCard = ({ room }: { room: Room }) => {
 	const { description, price, capacity, rating, discount, image, id } = room
 
 	const newPrice = calcDicsount(price, discount)
-
 	const imageName = image.split('hotelat-images/')[1]
 
 	return (
@@ -46,7 +45,7 @@ export const RoomCard = ({ room }: { room: Room }) => {
 				<p className='flex items-center gap-3'>
 					<span>👨‍👩</span>
 					<span className='mr-auto font-normal'>{capacity}</span>
-					<CardActions roomID={id} imageName={imageName} roomToEdit={room} />
+					<CardActions roomID={id} imageName={imageName} />
 				</p>
 			</CardContent>
 		</Card>
