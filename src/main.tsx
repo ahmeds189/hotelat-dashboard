@@ -20,7 +20,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 					hideProgressBar={false}
 					closeOnClick={false}
 					limit={1}
-					pauseOnFocusLoss
 					draggable
 					pauseOnHover
 					draggableDirection='y'
