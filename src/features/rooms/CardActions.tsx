@@ -7,13 +7,16 @@ import { Button } from '@/components/ui/button'
 import { MoreVertical } from 'lucide-react'
 import { DeleteRoom } from './DeleteRoom'
 import { EditRoom } from './EditRoom'
+import { Room } from './api'
 
 export const CardActions = ({
 	roomID,
 	imageName,
+	roomToEdit,
 }: {
 	roomID: number
 	imageName: string
+	roomToEdit: Room
 }) => {
 	return (
 		<DropdownMenu>
@@ -24,7 +27,7 @@ export const CardActions = ({
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='flex flex-col'>
 				<DeleteRoom roomID={roomID} imageName={imageName} />
-				<EditRoom />
+				<EditRoom roomToEdit={roomToEdit} />
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)

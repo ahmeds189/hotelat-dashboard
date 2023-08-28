@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { keys } from '@/react-query/keys'
-import { createRoom } from './api'
+import { Room, createRoom } from './api'
 import { useState } from 'react'
 import { useTheme } from '@/context/Theme'
 import { Loader } from 'lucide-react'
@@ -67,22 +67,32 @@ const Roomscheme = object({
 	image: string('please upload a photo'),
 })
 
-export const RoomForm = () => {
+export const RoomForm = ({ defaultValues }: { defaultValues: Room }) => {
 	const queryClient = useQueryClient()
 	const { setDialogDisplay } = useTheme()
 	const [file, setfile] = useState<any>([])
 
 	const form = useForm<schemeData>({
 		resolver: valibotResolver(Roomscheme),
-		defaultValues: {
-			room_number: '',
-			price: 0,
-			capacity: '',
-			rating: 0,
-			discount: 0,
-			description: '',
-			image: file,
-		},
+		defaultValues: !defaultValues
+			? {
+					room_number: '',
+					price: 0,
+					capacity: '',
+					rating: 0,
+					discount: 0,
+					description: '',
+					image: file,
+			  }
+			: {
+					room_number: defaultValues.room_number,
+					price: defaultValues.price,
+					capacity: defaultValues.capacity,
+					rating: defaultValues.rating,
+					discount: defaultValues.discount,
+					description: defaultValues.description,
+					image: file,
+			  },
 	})
 
 	const { mutate, isLoading } = useMutation({

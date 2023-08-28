@@ -46,7 +46,7 @@ export const RoomCard = ({ room }: { room: Room }) => {
 				<p className='flex items-center gap-3'>
 					<span>👨‍👩</span>
 					<span className='mr-auto font-normal'>{capacity}</span>
-					<CardActions roomID={id} imageName={imageName} />
+					<CardActions roomID={id} imageName={imageName} roomToEdit={room} />
 				</p>
 			</CardContent>
 		</Card>
