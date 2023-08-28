@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { useIsFetching } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
 
