@@ -20,7 +20,7 @@ export async function getRooms(): Promise<Room[]> {
 	return data
 }
 
-export async function deleteRoom(id: number, imageName: string) {
+export async function deleteRoom(id: number, imageName: string): Promise<any> {
 	const { error } = await supabase.from('rooms').delete().eq('id', id)
 
 	const { error: uploadError } = await supabase.storage

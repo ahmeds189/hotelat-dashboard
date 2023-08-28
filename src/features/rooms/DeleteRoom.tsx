@@ -9,28 +9,16 @@ import {
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { keys } from '@/react-query/keys'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Loader, Trash2 } from 'lucide-react'
-import { toast } from 'react-toastify'
-import { deleteRoom } from './api'
+import { useDeleteRoom } from './hooks/useDeleteRoom'
 
-export const DeleteRoom = ({
-	roomID,
-	imageName,
-}: {
+interface Props {
 	roomID: number
 	imageName: string
-}) => {
-	const queryClient = useQueryClient()
+}
 
-	const { mutate, isLoading } = useMutation({
-		mutationFn: (): any => deleteRoom(roomID, imageName),
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: [keys.rooms] })
-			toast.success('successfully deleted')
-		},
-	})
+export const DeleteRoom = ({ roomID, imageName }: Props) => {
+	const { mutate, isLoading } = useDeleteRoom(roomID, imageName)
 
 	return (
 		<AlertDialog>
