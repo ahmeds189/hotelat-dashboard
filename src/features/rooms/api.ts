@@ -22,16 +22,14 @@ export async function getRooms(): Promise<Room[]> {
 
 export async function deleteRoom(id: number, imageName: string): Promise<any> {
 	const { error } = await supabase.from('rooms').delete().eq('id', id)
-
-	const { error: uploadError } = await supabase.storage
+	const { error: storageError } = await supabase.storage
 		.from('hotelat-images')
 		.remove([imageName])
-
 	if (error) {
 		throw new Error(error.message)
 	}
-	if (uploadError) {
-		throw new Error(uploadError.message)
+	if (storageError) {
+		throw new Error(storageError.message)
 	}
 }
 
