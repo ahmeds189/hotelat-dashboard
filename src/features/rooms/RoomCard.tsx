@@ -18,11 +18,9 @@ export const RoomCard = ({ room }: { room: Room }) => {
 	return (
 		<Card>
 			<CardHeader className='mb-auto relative'>
-				<img
-					src={image || 'https://placehold.co/600x400'}
-					alt={description}
-					className='rounded-md mb-4'
-				/>
+				<div className='bg-[url(/placeholder.svg)] overflow-hidden bg-cover rounded-md w-full aspect-video h-[12.5rem]'>
+					<img src={image} alt={description} />
+				</div>
 				<CardDescription>{description}</CardDescription>
 				<Badge className='absolute left-5 font-normal'>
 					<span className='mr-1'>⭐</span>
@@ -39,7 +37,7 @@ export const RoomCard = ({ room }: { room: Room }) => {
 				<p className='mb-4 font-medium'>
 					${newPrice}
 					<del className='text-xs text-muted-foreground ml-1 font-normal'>
-						${price}
+						{discount ? `$${price}` : null}
 					</del>
 				</p>
 				<p className='flex items-center gap-3'>

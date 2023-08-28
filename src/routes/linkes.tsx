@@ -20,14 +20,14 @@ export const overview: Routes[] = [
 		icon: <LayoutGrid />,
 	},
 	{
-		path: 'bookings',
-		id: 2,
-		icon: <CalendarRange />,
-	},
-	{
 		path: 'rooms',
 		id: 3,
 		icon: <BedDouble />,
+	},
+	{
+		path: 'bookings',
+		id: 2,
+		icon: <CalendarRange />,
 	},
 ]
 
