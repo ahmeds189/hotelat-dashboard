@@ -1,7 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteRoom } from '../api'
 import { toast } from 'react-toastify'
 import { keys } from '@/react-query/keys'
+import { supabase } from '@/supabase/supabase'
+
+async function deleteRoom(roomID: number, imageName: string): Promise<void> {
+	const { error } = await supabase.from('rooms').delete().eq('id', roomID)
+	const { error: storageError } = await supabase.storage
+		.from('hotelat-images')
+		.remove([imageName])
+	if (error) {
+		throw new Error(error.message)
+	}
+	if (storageError) {
+		throw new Error(storageError.message)
+	}
+}
 
 export function useDeleteRoom(roomID: number, imageName: string) {
 	const queryClient = useQueryClient()

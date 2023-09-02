@@ -1,13 +1,13 @@
-import { Badge } from '@/components/ui/badge'
 import {
 	Card,
 	CardContent,
 	CardDescription,
 	CardHeader,
 } from '@/components/ui/card'
-import { calcDicsount } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
 import { CardActions } from './CardActions'
-import { Room } from './api'
+import { calcDicsount } from '@/lib/utils'
+import { Room } from '@/lib/types'
 
 export const RoomCard = ({ room }: { room: Room }) => {
 	const { description, price, capacity, rating, discount, image, id } = room
@@ -18,7 +18,7 @@ export const RoomCard = ({ room }: { room: Room }) => {
 	return (
 		<Card>
 			<CardHeader className='mb-auto relative'>
-				<div className='bg-[url(/placeholder.svg)] overflow-hidden bg-cover rounded-md w-full aspect-video h-[12.5rem]'>
+				<div className='bg-[url(/placeholder.svg)] overflow-hidden bg-cover rounded-md w-full'>
 					<img src={image} alt={description} />
 				</div>
 				<CardDescription>{description}</CardDescription>

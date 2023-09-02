@@ -3,13 +3,9 @@ import { useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
-import { keys } from '@/react-query/keys'
-import { createRoom } from './api'
 import { useState } from 'react'
-import { useTheme } from '@/context/Theme'
 import { Loader } from 'lucide-react'
+import { useCreateAndUpdateRoom } from './hooks/useCreateAndUpdateRoom'
 import {
 	Output,
 	coerce,
@@ -31,7 +27,6 @@ import {
 } from '@/components/ui/form'
 
 type schemeData = Output<typeof Roomscheme>
-
 const Roomscheme = object({
 	room_number: string([
 		minLength(3, 'number should follow this pattern => 001, 002...'),
@@ -68,9 +63,8 @@ const Roomscheme = object({
 })
 
 export const RoomForm = () => {
-	const queryClient = useQueryClient()
-	const { setDialogDisplay } = useTheme()
 	const [file, setfile] = useState<any>([])
+	const { mutate, isLoading } = useCreateAndUpdateRoom()
 
 	const form = useForm<schemeData>({
 		resolver: valibotResolver(Roomscheme),
@@ -85,18 +79,8 @@ export const RoomForm = () => {
 		},
 	})
 
-	const { mutate, isLoading } = useMutation({
-		mutationFn: createRoom,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: [keys.rooms] })
-			toast.success('successfully created')
-			form.reset()
-			setDialogDisplay(false)
-		},
-	})
-
 	const onSubmit = (values: schemeData) => {
-		mutate({ ...values, image: file, id: Math.round(Math.random()) })
+		mutate({ ...values, image: file })
 	}
 
 	const handleFileSelected = (e: any) => {
@@ -163,7 +147,6 @@ export const RoomForm = () => {
 						)}
 					/>
 				</div>
-
 				<FormField
 					control={form.control}
 					name='capacity'
@@ -217,7 +200,6 @@ export const RoomForm = () => {
 						</FormItem>
 					)}
 				/>
-
 				<Button
 					type='submit'
 					disabled={isLoading}
