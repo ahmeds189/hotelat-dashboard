@@ -13,7 +13,7 @@ import { Loader, Trash2 } from 'lucide-react'
 import { useDeleteRoom } from './hooks/useDeleteRoom'
 
 interface Props {
-	roomID: number
+	roomID: number | undefined
 	imageName: string
 }
 

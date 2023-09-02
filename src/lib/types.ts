@@ -6,5 +6,5 @@ export type Room = {
 	discount: number
 	description: string
 	image: any
-	id: number
+	id?: number
 }

@@ -9,7 +9,7 @@ import { DeleteRoom } from './DeleteRoom'
 import { EditRoom } from './EditRoom'
 
 interface Props {
-	roomID: number
+	roomID: number | undefined
 	imageName: string
 }
 

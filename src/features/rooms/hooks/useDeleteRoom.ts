@@ -3,7 +3,10 @@ import { toast } from 'react-toastify'
 import { keys } from '@/react-query/keys'
 import { supabase } from '@/supabase/supabase'
 
-async function deleteRoom(roomID: number, imageName: string): Promise<void> {
+async function deleteRoom(
+	roomID: number | undefined,
+	imageName: string
+): Promise<void> {
 	const { error } = await supabase.from('rooms').delete().eq('id', roomID)
 	const { error: storageError } = await supabase.storage
 		.from('hotelat-images')
@@ -16,7 +19,7 @@ async function deleteRoom(roomID: number, imageName: string): Promise<void> {
 	}
 }
 
-export function useDeleteRoom(roomID: number, imageName: string) {
+export function useDeleteRoom(roomID: number | undefined, imageName: string) {
 	const queryClient = useQueryClient()
 
 	const { mutate, isLoading } = useMutation({

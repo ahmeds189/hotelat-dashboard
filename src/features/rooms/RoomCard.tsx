@@ -18,8 +18,8 @@ export const RoomCard = ({ room }: { room: Room }) => {
 	return (
 		<Card>
 			<CardHeader className='mb-auto relative'>
-				<div className='bg-[url(/placeholder.svg)] overflow-hidden bg-cover rounded-md w-full'>
-					<img src={image} alt={description} />
+				<div className='bg-[url(/placeholder.svg)] overflow-hidden rounded-md object-cover bg-center aspect-video w-full'>
+					<img src={image} alt={description} className='w-full aspect-video' />
 				</div>
 				<CardDescription>{description}</CardDescription>
 				<Badge className='absolute left-5 font-normal'>
