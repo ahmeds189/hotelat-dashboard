@@ -25,6 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 					draggableDirection='y'
 					transition={Slide}
 					theme='dark'
+					pauseOnFocusLoss={false}
 				/>
 				<RouterProvider router={router} />
 				<ReactQueryDevtools position='bottom-right' />
