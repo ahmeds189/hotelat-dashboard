@@ -5,17 +5,18 @@ import { toast } from 'react-toastify'
 import { useTheme } from '@/context/Theme'
 import { keys } from '@/react-query/keys'
 
-async function createRoom(newRoom: Room): Promise<any> {
+async function createRoom(newRoom: Room): Promise<Room[]> {
 	const imageName = `${Math.random()}-${newRoom.image.name}`.replaceAll('/', '')
 
 	const imagePath = `${
 		import.meta.env.VITE_SUPABASE_URL
 	}/storage/v1/object/public/hotelat-images/${imageName}`
 
-	const { error } = await supabase
+	const { data, error } = await supabase
 		.from('rooms')
 		.insert([{ ...newRoom, image: imagePath }])
 		.select()
+		.single()
 
 	const { error: uploadError } = await supabase.storage
 		.from('hotelat-images')
@@ -27,9 +28,10 @@ async function createRoom(newRoom: Room): Promise<any> {
 	if (uploadError) {
 		throw new Error(uploadError.message)
 	}
+	return data
 }
 
-export function useCreateAndUpdateRoom() {
+export function useCreateRoom() {
 	const queryClient = useQueryClient()
 	const { setDialogDisplay } = useTheme()
 

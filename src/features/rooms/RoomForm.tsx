@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { useState } from 'react'
 import { Loader } from 'lucide-react'
-import { useCreateAndUpdateRoom } from './hooks/useCreateAndUpdateRoom'
+import { useCreateRoom } from './hooks/useCreateRoom'
 import {
 	Output,
 	coerce,
@@ -64,7 +64,7 @@ const Roomscheme = object({
 
 export const RoomForm = () => {
 	const [file, setfile] = useState<any>([])
-	const { mutate, isLoading } = useCreateAndUpdateRoom()
+	const { mutate, isLoading } = useCreateRoom()
 
 	const form = useForm<schemeData>({
 		resolver: valibotResolver(Roomscheme),
