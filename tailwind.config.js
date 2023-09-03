@@ -75,7 +75,7 @@ module.exports = {
 				fluid: 'repeat(auto-fit, minmax(20rem, 1fr))',
 			},
 			fontFamily: {
-				sans: ['Wotfard', 'sans-serif'],
+				sans: ['Inter', 'sans-serif'],
 			},
 			screens: {
 				xs: '415px',
