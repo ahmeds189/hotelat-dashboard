@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Loader, Trash2 } from 'lucide-react'
 import { useDeleteRoom } from './hooks/useDeleteRoom'
-import { Room, FetchedRoom } from '@/lib/types'
+import { FetchedRoom } from '@/lib/types'
 
 interface Props {
 	room: FetchedRoom

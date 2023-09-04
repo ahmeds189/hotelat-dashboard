@@ -7,7 +7,8 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { CardActions } from './CardActions'
 import { calcDicsount } from '@/lib/utils'
-import { Room, FetchedRoom } from '@/lib/types'
+import { FetchedRoom } from '@/lib/types'
+import { Bed } from 'lucide-react'
 
 interface Props {
 	room: FetchedRoom
@@ -45,8 +46,10 @@ export const RoomCard = ({ room }: Props) => {
 					</del>
 				</p>
 				<div className='flex items-center gap-3'>
-					<span>👨‍👩</span>
-					<span className='mr-auto font-normal'>{capacity}</span>
+					<Bed className='text-indigo-500' />
+					<span className='mr-auto font-normal'>
+						fits up to {capacity} person(s)
+					</span>
 					<CardActions room={room} />
 				</div>
 			</CardContent>

@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Loader } from 'lucide-react'
-import { Room } from '@/lib/types'
 import { useCreateRoom } from './hooks/useCreateRoom'
 
 const Roomscheme = z.object({
