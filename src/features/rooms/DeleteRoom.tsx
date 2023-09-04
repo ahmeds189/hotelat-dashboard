@@ -11,14 +11,16 @@ import {
 import { Button } from '@/components/ui/button'
 import { Loader, Trash2 } from 'lucide-react'
 import { useDeleteRoom } from './hooks/useDeleteRoom'
+import { Room } from '@/lib/types'
 
 interface Props {
-	roomID: number | undefined
-	imageName: string
+	room: Room
 }
 
-export const DeleteRoom = ({ roomID, imageName }: Props) => {
-	const { mutate, isLoading } = useDeleteRoom(roomID, imageName)
+export const DeleteRoom = ({ room }: Props) => {
+	const { image, id } = room
+	const imageName = image.split('hotelat-images/')[1]
+	const { mutate, isLoading } = useDeleteRoom(id, imageName)
 
 	return (
 		<AlertDialog>

@@ -9,11 +9,13 @@ import { CardActions } from './CardActions'
 import { calcDicsount } from '@/lib/utils'
 import { Room } from '@/lib/types'
 
-export const RoomCard = ({ room }: { room: Room }) => {
-	const { description, price, capacity, rating, discount, image, id } = room
+interface Props {
+	room: Room
+}
 
+export const RoomCard = ({ room }: Props) => {
+	const { description, price, capacity, rating, discount, image } = room
 	const newPrice = calcDicsount(price, discount)
-	const imageName = image.split('hotelat-images/')[1]
 
 	return (
 		<Card>
@@ -40,11 +42,11 @@ export const RoomCard = ({ room }: { room: Room }) => {
 						{discount ? `$${price}` : null}
 					</del>
 				</p>
-				<p className='flex items-center gap-3'>
+				<div className='flex items-center gap-3'>
 					<span>👨‍👩</span>
 					<span className='mr-auto font-normal'>{capacity}</span>
-					<CardActions roomID={id} imageName={imageName} />
-				</p>
+					<CardActions room={room} />
+				</div>
 			</CardContent>
 		</Card>
 	)

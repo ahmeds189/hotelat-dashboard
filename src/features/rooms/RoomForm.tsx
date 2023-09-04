@@ -1,214 +1,161 @@
-import { valibotResolver } from '@hookform/resolvers/valibot'
+import * as Form from '@/components/ui/form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import { useState } from 'react'
 import { Loader } from 'lucide-react'
+import { Room } from '@/lib/types'
 import { useCreateRoom } from './hooks/useCreateRoom'
-import {
-	Output,
-	coerce,
-	maxLength,
-	maxValue,
-	minLength,
-	minValue,
-	number,
-	object,
-	string,
-} from 'valibot'
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '@/components/ui/form'
 
-type schemeData = Output<typeof Roomscheme>
-const Roomscheme = object({
-	room_number: string([
-		minLength(3, 'number should follow this pattern => 001, 002...'),
-		maxLength(3, 'number should follow this pattern => 001, 002...'),
-		minValue('001', 'number should follow this pattern => 001, 002...'),
-	]),
-
-	price: coerce(
-		number([
-			minValue(100, 'price must be above 100.'),
-			maxValue(1000, 'price must be below 1000.'),
-		]),
-		Number
-	),
-	capacity: string([
-		minValue('1 adult', 'please follow this pattern => 2 adults 1 kid.'),
-	]),
-	rating: coerce(
-		number([
-			minValue(1, 'rating must be between 1 to 5.'),
-			maxValue(5, 'rating must be between 1 to 5.'),
-		]),
-		Number
-	),
-	discount: coerce(
-		number([
-			minValue(0, 'enter discount from 0 up to 90.'),
-			maxValue(90, 'enter discount from 0 up to 90.'),
-		]),
-		Number
-	),
-	description: string([minLength(10, 'at least enter 1 sentence long.')]),
-	image: string('please upload a photo'),
+const Roomscheme = z.object({
+	price: z.coerce
+		.number()
+		.min(200, { message: 'must be greater than or equal to 200' })
+		.max(900, { message: 'must be less than or equal to 900' }),
+	discount: z.optional(z.coerce.number().min(5).max(100)),
+	rating: z.coerce
+		.number()
+		.min(1, { message: 'must be greater than or equal to 1' })
+		.max(5, { message: 'must be less than or equal to 5' }),
+	capacity: z.coerce
+		.number()
+		.min(1, { message: 'must be greater than or equal to 1 person' })
+		.max(10, { message: 'must be less than or equal to 10 persons' }),
+	description: z
+		.string()
+		.min(10, { message: 'must be 10 or more characters long' }),
+	image: z.instanceof(File, { message: 'please upload an image' }),
 })
 
-export const RoomForm = () => {
-	const [file, setfile] = useState<any>([])
-	const { mutate, isLoading } = useCreateRoom()
+interface Props {
+	roomValues: Room
+}
 
-	const form = useForm<schemeData>({
-		resolver: valibotResolver(Roomscheme),
+export const RoomForm = ({}: Props) => {
+	const { isLoading, mutate: create } = useCreateRoom()
+
+	const form = useForm<z.infer<typeof Roomscheme>>({
+		resolver: zodResolver(Roomscheme),
 		defaultValues: {
-			room_number: '',
 			price: 0,
-			capacity: '',
 			rating: 0,
-			discount: 0,
+			capacity: 0,
 			description: '',
-			image: file,
 		},
 	})
 
-	const onSubmit = (values: schemeData) => {
-		mutate({ ...values, image: file })
-	}
-
-	const handleFileSelected = (e: any) => {
-		if (!e.target.files || !e) return
-		setfile(e.target.files[0])
+	const onSubmit = (values: z.infer<typeof Roomscheme>) => {
+		create(values)
 	}
 
 	return (
-		<Form {...form}>
+		<Form.Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-				<div className='flex gap-3'>
-					<FormField
-						control={form.control}
-						name='room_number'
-						render={({ field }) => (
-							<FormItem className='basis-1/2'>
-								<FormLabel>Room Number</FormLabel>
-								<FormControl>
-									<Input placeholder='eg => 001, 002...' {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
+				<div className='flex flex-col gap-3 sm:flex-row'>
+					<Form.FormField
 						control={form.control}
 						name='price'
 						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Room Price</FormLabel>
-								<FormControl>
+							<Form.FormItem className='basis-1/2'>
+								<Form.FormLabel>Room Price</Form.FormLabel>
+								<Form.FormControl>
 									<Input placeholder='0' {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
+								</Form.FormControl>
+								<Form.FormMessage />
+							</Form.FormItem>
+						)}
+					/>
+					<Form.FormField
+						control={form.control}
+						name='capacity'
+						render={({ field }) => (
+							<Form.FormItem className='basis-1/2'>
+								<Form.FormLabel>Capacity</Form.FormLabel>
+								<Form.FormControl>
+									<Input placeholder='0' {...field} />
+								</Form.FormControl>
+								<Form.FormMessage />
+							</Form.FormItem>
 						)}
 					/>
 				</div>
-				<div className='flex gap-3'>
-					<FormField
+				<div className='flex flex-col gap-3 sm:flex-row'>
+					<Form.FormField
 						control={form.control}
 						name='discount'
 						render={({ field }) => (
-							<FormItem className='basis-1/2'>
-								<FormLabel>Discount</FormLabel>
-								<FormControl>
+							<Form.FormItem className='basis-1/2'>
+								<Form.FormLabel>Discount</Form.FormLabel>
+								<Form.FormControl>
 									<Input placeholder='0' {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
+								</Form.FormControl>
+								<Form.FormMessage />
+							</Form.FormItem>
 						)}
 					/>
-					<FormField
+					<Form.FormField
 						control={form.control}
 						name='rating'
 						render={({ field }) => (
-							<FormItem className='basis-1/2'>
-								<FormLabel>Rating</FormLabel>
-								<FormControl>
+							<Form.FormItem className='basis-1/2'>
+								<Form.FormLabel>Rating</Form.FormLabel>
+								<Form.FormControl>
 									<Input placeholder='1' {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
+								</Form.FormControl>
+								<Form.FormMessage />
+							</Form.FormItem>
 						)}
 					/>
 				</div>
-				<FormField
-					control={form.control}
-					name='capacity'
-					render={({ field }) => (
-						<FormItem className='basis-1/2'>
-							<FormLabel>Capacity</FormLabel>
-							<FormControl>
-								<Input placeholder='eg => 2 adults 1 kid' {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
+
+				<Form.FormField
 					control={form.control}
 					name='description'
 					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Description</FormLabel>
-							<FormControl>
+						<Form.FormItem>
+							<Form.FormLabel>Description</Form.FormLabel>
+							<Form.FormControl>
 								<Textarea
 									placeholder='descripe room features and details..'
 									className='resize-none'
 									{...field}
 								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
+							</Form.FormControl>
+							<Form.FormMessage />
+						</Form.FormItem>
 					)}
 				/>
-				<FormField
+				<Form.FormField
 					control={form.control}
 					name='image'
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Image</FormLabel>
-							<FormControl>
+					render={({ field: { onChange } }) => (
+						<Form.FormItem>
+							<Form.FormLabel>Image</Form.FormLabel>
+							<Form.FormControl>
 								<Input
-									{...field}
+									accept='.jpg, .jpeg, .png'
 									type='file'
-									accept='image/*'
-									value={field.value}
-									onChange={(e) => {
-										field.onChange(e)
-										handleFileSelected(e)
-									}}
+									onChange={(e) =>
+										onChange(e.target.files ? e.target.files[0] : null)
+									}
 									className='file:text-foreground cursor-pointer'
 								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
+							</Form.FormControl>
+							<Form.FormMessage />
+						</Form.FormItem>
 					)}
 				/>
 				<Button
 					type='submit'
 					disabled={isLoading}
-					className={`${isLoading ? 'flex items-center gap-3' : ''}`}
+					className={`${isLoading ? 'flex items-center gap-3' : null}`}
 				>
 					{isLoading && <Loader className='animate-spin' />}
 					Submit
 				</Button>
 			</form>
-		</Form>
+		</Form.Form>
 	)
 }
