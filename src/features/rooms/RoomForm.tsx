@@ -29,11 +29,7 @@ const Roomscheme = z.object({
 	image: z.instanceof(File, { message: 'please upload an image' }),
 })
 
-interface Props {
-	roomValues: Room
-}
-
-export const RoomForm = ({}: Props) => {
+export const RoomForm = () => {
 	const { isLoading, mutate: create } = useCreateRoom()
 
 	const form = useForm<z.infer<typeof Roomscheme>>({

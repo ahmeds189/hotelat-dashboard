@@ -3,10 +3,10 @@ import { Button } from '@/components/ui/button'
 import { Settings2 } from 'lucide-react'
 import { RoomForm } from './RoomForm'
 import { useTheme } from '@/context/Theme'
-import { Room } from '@/lib/types'
+import { Room, FetchedRoom } from '@/lib/types'
 
 interface Props {
-	room: Room
+	room: FetchedRoom
 }
 
 export const EditRoom = ({ room }: Props) => {
@@ -21,7 +21,7 @@ export const EditRoom = ({ room }: Props) => {
 				</Button>
 			</DialogTrigger>
 			<DialogContent className='w-[95vw] rounded-md'>
-				<RoomForm roomValues={room} />
+				<RoomForm />
 			</DialogContent>
 		</Dialog>
 	)

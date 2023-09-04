@@ -11,10 +11,10 @@ import {
 import { Button } from '@/components/ui/button'
 import { Loader, Trash2 } from 'lucide-react'
 import { useDeleteRoom } from './hooks/useDeleteRoom'
-import { Room } from '@/lib/types'
+import { Room, FetchedRoom } from '@/lib/types'
 
 interface Props {
-	room: Room
+	room: FetchedRoom
 }
 
 export const DeleteRoom = ({ room }: Props) => {

@@ -7,10 +7,10 @@ import { Button } from '@/components/ui/button'
 import { MoreVertical } from 'lucide-react'
 import { DeleteRoom } from './DeleteRoom'
 import { EditRoom } from './EditRoom'
-import { Room } from '@/lib/types'
+import { Room, FetchedRoom } from '@/lib/types'
 
 interface Props {
-	room: Room
+	room: FetchedRoom
 }
 
 export const CardActions = ({ room }: Props) => {

@@ -7,10 +7,10 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { CardActions } from './CardActions'
 import { calcDicsount } from '@/lib/utils'
-import { Room } from '@/lib/types'
+import { Room, FetchedRoom } from '@/lib/types'
 
 interface Props {
-	room: Room
+	room: FetchedRoom
 }
 
 export const RoomCard = ({ room }: Props) => {
@@ -30,12 +30,14 @@ export const RoomCard = ({ room }: Props) => {
 				</Badge>
 			</CardHeader>
 			<CardContent>
-				<Badge
-					variant='outline'
-					className='mb-1 text-xs text-muted-foreground font-normal'
-				>
-					{discount}% off
-				</Badge>
+				{discount && (
+					<Badge
+						variant='outline'
+						className='mb-1 text-xs text-muted-foreground font-normal'
+					>
+						{discount}% off
+					</Badge>
+				)}
 				<p className='mb-4 font-medium'>
 					${newPrice}
 					<del className='text-xs text-muted-foreground ml-1 font-normal'>
