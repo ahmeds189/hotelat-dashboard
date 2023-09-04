@@ -3,13 +3,8 @@ import { Button } from '@/components/ui/button'
 import { Settings2 } from 'lucide-react'
 import { RoomForm } from './RoomForm'
 import { useTheme } from '@/context/Theme'
-import { FetchedRoom } from '@/lib/types'
 
-interface Props {
-	room: FetchedRoom
-}
-
-export const EditRoom = ({}: Props) => {
+export const EditRoom = () => {
 	const { dialogDisplay, setDialogDisplay } = useTheme()
 
 	return (

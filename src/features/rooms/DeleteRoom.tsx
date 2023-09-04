@@ -9,25 +9,16 @@ import {
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { Loader, Trash2 } from 'lucide-react'
-import { useDeleteRoom } from './hooks/useDeleteRoom'
-import { FetchedRoom } from '@/lib/types'
+import { Loader, Trash } from 'lucide-react'
 
-interface Props {
-	room: FetchedRoom
-}
-
-export const DeleteRoom = ({ room }: Props) => {
-	const { image, id } = room
-	const imageName = image.split('hotelat-images/')[1]
-	const { mutate, isLoading } = useDeleteRoom(id, imageName)
+export const DeleteRoom = () => {
+	const isLoading = false
 
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<Button variant='destructive' className='gap-4 justify-start'>
-					<Trash2 />
-					Delete
+				<Button size='icon' variant='outline'>
+					<Trash />
 				</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
@@ -42,7 +33,7 @@ export const DeleteRoom = ({ room }: Props) => {
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
 					<Button
 						variant='destructive'
-						onClick={() => mutate()}
+						onClick={() => console.log('123')}
 						disabled={isLoading}
 						className={`${isLoading ? 'flex items-center gap-3' : null}`}
 					>

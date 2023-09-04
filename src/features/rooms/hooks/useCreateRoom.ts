@@ -6,10 +6,9 @@ import { useTheme } from '@/context/Theme'
 import { keys } from '@/react-query/keys'
 
 async function createRoom(newRoom: Room): Promise<void> {
-	const imageName = `${Math.random().toFixed(5)}-${
+	const imageName = `${Math.floor(Math.random() * 101)}-${
 		newRoom.image.name
 	}`.replaceAll('/', '')
-
 	const imagePath = `${supabaseUrl}/storage/v1/object/public/hotelat-images/${imageName}`
 
 	const { error } = await supabase
@@ -32,7 +31,7 @@ export function useCreateRoom() {
 	const queryClient = useQueryClient()
 	const { setDialogDisplay } = useTheme()
 
-	const { mutate, isLoading } = useMutation({
+	const { mutate: create, isLoading: isCreating } = useMutation({
 		mutationFn: createRoom,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: [keys.rooms] })
@@ -41,5 +40,5 @@ export function useCreateRoom() {
 		},
 	})
 
-	return { mutate, isLoading }
+	return { create, isCreating }
 }

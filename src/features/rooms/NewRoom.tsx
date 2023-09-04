@@ -10,7 +10,7 @@ export const NewRoom = () => {
 	return (
 		<Dialog open={dialogDisplay} onOpenChange={setDialogDisplay}>
 			<DialogTrigger asChild>
-				<Button className='py-6 text-xl gap-3 bg-indigo-600 text-white hover:bg-indigo-500'>
+				<Button className='py-4 text-lg gap-3 bg-indigo-600 text-white font-semibold hover:bg-indigo-500'>
 					<PlusCircle size={22} />
 					<span>Add new</span>
 				</Button>

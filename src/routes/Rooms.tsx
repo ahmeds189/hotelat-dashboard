@@ -7,7 +7,7 @@ export const Rooms = () => {
 		<>
 			<Loading />
 			<div className='flex flex-col items-center gap-3 mb-8 xs:flex-row xs:justify-between'>
-				<h1 className='font-bold text-3xl'>All Rooms</h1>
+				<h1 className='font-semibold text-3xl'>All Rooms</h1>
 				<NewRoom />
 			</div>
 			<RoomsGrid />

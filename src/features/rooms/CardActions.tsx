@@ -1,30 +1,17 @@
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
-import { MoreVertical } from 'lucide-react'
+import { Edit, Files } from 'lucide-react'
 import { DeleteRoom } from './DeleteRoom'
-import { EditRoom } from './EditRoom'
-import { FetchedRoom } from '@/lib/types'
 
-interface Props {
-	room: FetchedRoom
-}
-
-export const CardActions = ({ room }: Props) => {
+export const CardActions = () => {
 	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button variant='outline' size='icon'>
-					<MoreVertical />
-				</Button>
-			</DropdownMenuTrigger>
-			<DropdownMenuContent className='flex flex-col'>
-				<DeleteRoom room={room} />
-				<EditRoom room={room} />
-			</DropdownMenuContent>
-		</DropdownMenu>
+		<div className='flex space-x-3'>
+			<Button size='icon' variant='outline'>
+				<Edit />
+			</Button>
+			<Button size='icon' variant='outline'>
+				<Files />
+			</Button>
+			<DeleteRoom />
+		</div>
 	)
 }

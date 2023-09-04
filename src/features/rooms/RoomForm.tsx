@@ -13,7 +13,7 @@ const Roomscheme = z.object({
 		.number()
 		.min(200, { message: 'must be greater than or equal to 200' })
 		.max(900, { message: 'must be less than or equal to 900' }),
-	discount: z.optional(z.coerce.number().min(5).max(100)),
+	discount: z.coerce.number().min(0).max(100),
 	rating: z.coerce
 		.number()
 		.min(1, { message: 'must be greater than or equal to 1' })
@@ -29,7 +29,8 @@ const Roomscheme = z.object({
 })
 
 export const RoomForm = () => {
-	const { isLoading, mutate: create } = useCreateRoom()
+	const { create, isCreating } = useCreateRoom()
+	const isLoading = isCreating
 
 	const form = useForm<z.infer<typeof Roomscheme>>({
 		resolver: zodResolver(Roomscheme),
@@ -37,12 +38,13 @@ export const RoomForm = () => {
 			price: 0,
 			rating: 0,
 			capacity: 0,
+			discount: 0,
 			description: '',
 		},
 	})
 
 	const onSubmit = (values: z.infer<typeof Roomscheme>) => {
-		create(values)
+		create({ ...values, id: Math.floor(Math.random() * 1001) })
 	}
 
 	return (

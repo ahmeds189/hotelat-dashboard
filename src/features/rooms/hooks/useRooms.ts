@@ -1,9 +1,9 @@
 import { keys } from '@/react-query/keys'
 import { useQuery } from '@tanstack/react-query'
-import { FetchedRoom } from '@/lib/types'
+import { Room } from '@/lib/types'
 import { supabase } from '@/supabase/supabase'
 
-async function getRooms(): Promise<FetchedRoom[]> {
+async function getRooms(): Promise<Room[]> {
 	const { data, error } = await supabase.from('rooms').select('*')
 
 	if (error) {

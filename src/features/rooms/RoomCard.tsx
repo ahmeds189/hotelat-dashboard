@@ -7,11 +7,11 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { CardActions } from './CardActions'
 import { calcDicsount } from '@/lib/utils'
-import { FetchedRoom } from '@/lib/types'
-import { Bed } from 'lucide-react'
+import { Room } from '@/lib/types'
+import { Bed, Star } from 'lucide-react'
 
 interface Props {
-	room: FetchedRoom
+	room: Room
 }
 
 export const RoomCard = ({ room }: Props) => {
@@ -20,37 +20,39 @@ export const RoomCard = ({ room }: Props) => {
 
 	return (
 		<Card>
-			<CardHeader className='mb-auto relative'>
+			<CardHeader className='mb-auto'>
 				<div className='bg-[url(/placeholder.svg)] overflow-hidden rounded-md object-cover bg-center aspect-video w-full'>
 					<img src={image} alt={description} className='w-full aspect-video' />
 				</div>
 				<CardDescription>{description}</CardDescription>
-				<Badge className='absolute left-5 font-normal'>
-					<span className='mr-1'>⭐</span>
-					{rating}/5
-				</Badge>
 			</CardHeader>
 			<CardContent>
-				{discount && (
+				{discount ? (
 					<Badge
 						variant='outline'
 						className='mb-1 text-xs text-muted-foreground font-normal'
 					>
 						{discount}% off
 					</Badge>
-				)}
-				<p className='mb-4 font-medium'>
+				) : null}
+				<p className='mb-4 font-semibold'>
 					${newPrice}
 					<del className='text-xs text-muted-foreground ml-1 font-normal'>
 						{discount ? `$${price}` : null}
 					</del>
 				</p>
-				<div className='flex items-center gap-3'>
-					<Bed className='text-indigo-500' />
-					<span className='mr-auto font-normal'>
-						fits up to {capacity} person(s)
-					</span>
-					<CardActions room={room} />
+				<div>
+					<div className='flex items-center gap-3 mb-5'>
+						<Bed className='text-indigo-500' />
+						<p className='mr-auto font-normal text-sm'>
+							fits up to {capacity} person(s)
+						</p>
+					</div>
+					<div className='flex items-center gap-3 mb-5'>
+						<Star className='text-orange-400' />
+						<p className='mr-auto font-normal text-sm'>{rating} / 5</p>
+					</div>
+					<CardActions />
 				</div>
 			</CardContent>
 		</Card>
