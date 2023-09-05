@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
-import { keys } from '@/react-query/keys'
-import { supabase } from '@/supabase/supabase'
+import { queryKeys } from '@/lib/constnts'
+import { supabase } from '@/supabase'
 
 async function deleteRoom(id: number): Promise<void> {
 	const { error } = await supabase.from('rooms').delete().eq('id', id)
@@ -13,7 +13,7 @@ export function useDeleteRoom() {
 	const { mutate, isLoading } = useMutation({
 		mutationFn: deleteRoom,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: [keys.rooms] })
+			queryClient.invalidateQueries({ queryKey: [queryKeys.rooms] })
 			toast.success('successfully deleted')
 		},
 	})
