@@ -4,9 +4,11 @@ import { Button } from '@/components/ui/button'
 import { PlusCircle } from 'lucide-react'
 import { RoomForm } from './RoomForm'
 import { useTheme } from '@/context/Theme'
+import { useRooms } from './hooks/useRooms'
 
 const Page = () => {
 	const { dialogDisplay, setDialogDisplay } = useTheme()
+	const { rooms = [] } = useRooms()
 
 	return (
 		<>
@@ -24,7 +26,7 @@ const Page = () => {
 					</DialogContent>
 				</Dialog>
 			</div>
-			<RoomsGrid />
+			<RoomsGrid rooms={rooms} />
 		</>
 	)
 }
