@@ -8,8 +8,8 @@ import { queryClient } from '@/react-query/query-client'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ToastContainer } from 'react-toastify'
 import { Slide } from 'react-toastify'
-import '@/index.css'
 import 'react-toastify/dist/ReactToastify.css'
+import '@/index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
@@ -19,13 +19,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 					position='top-center'
 					hideProgressBar={false}
 					closeOnClick={false}
+					pauseOnFocusLoss={false}
 					limit={1}
 					draggable
 					pauseOnHover
 					draggableDirection='y'
 					transition={Slide}
-					theme='dark'
-					pauseOnFocusLoss={false}
 				/>
 				<RouterProvider router={router} />
 				<ReactQueryDevtools position='top-right' />

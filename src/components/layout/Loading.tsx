@@ -1,27 +1,21 @@
-import { useIsFetching } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
+import { useIsFetching } from '@tanstack/react-query'
+import { Loader2 } from 'lucide-react'
 
 export const Loading = () => {
 	const isFetching = useIsFetching()
 
 	return (
-		<div
+		<span
 			className={cn(
-				'block w-fit bg-gray-200 dark:bg-indigo-950 p-3 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-				isFetching ? 'block' : 'hidden'
+				'rounded-md bg-muted p-4 py-3 flex items-center gap-3 shadow-md fill-mode-both duration-400',
+				isFetching
+					? 'animate-in fade-in slide-in-from-top'
+					: 'animate-out fade-out slide-out-to-top'
 			)}
 		>
-			<svg
-				viewBox='0 0 24 24'
-				xmlns='http://www.w3.org/2000/svg'
-				className='w-10 h-10 fill-indigo-600 animate-loading-spin'
-			>
-				<circle cx='12' cy='12' r='3' className='animate-bounce delay-300' />
-				<g>
-					<circle cx='4' cy='12' r='3' />
-					<circle cx='20' cy='12' r='3' />
-				</g>
-			</svg>
-		</div>
+			<Loader2 className='animate-spin' />
+			Loading...
+		</span>
 	)
 }
