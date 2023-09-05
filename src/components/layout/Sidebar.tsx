@@ -1,15 +1,56 @@
 import { Link, NavLink } from 'react-router-dom'
-import { overview, management } from '@/routes/linkes'
 import { cn } from '@/lib/utils'
 import { useTheme } from '@/context/Theme'
-import { Routes } from '@/routes/linkes'
+import { ReactElement } from 'react'
+import {
+	LayoutGrid,
+	CalendarRange,
+	BedDouble,
+	Users2,
+	Settings,
+} from 'lucide-react'
 
-interface ListProps {
+interface Routes {
+	path: string
+	id: number
+	icon: ReactElement
+}
+
+const overview: Routes[] = [
+	{
+		path: 'Dashboard',
+		id: 1,
+		icon: <LayoutGrid />,
+	},
+	{
+		path: 'rooms',
+		id: 3,
+		icon: <BedDouble />,
+	},
+	{
+		path: 'bookings',
+		id: 2,
+		icon: <CalendarRange />,
+	},
+]
+const management: Routes[] = [
+	{
+		path: 'staff',
+		id: 4,
+		icon: <Users2 />,
+	},
+	{
+		path: 'settings',
+		id: 5,
+		icon: <Settings />,
+	},
+]
+
+interface Props {
 	heading: string
 	links: Routes[]
 }
-
-const LinkesList = ({ heading, links }: ListProps) => {
+const LinkesList = ({ heading, links }: Props) => {
 	const { setSheetDisply } = useTheme()
 	return (
 		<ul className='mb-6'>
