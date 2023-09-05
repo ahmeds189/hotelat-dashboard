@@ -28,7 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 					pauseOnFocusLoss={false}
 				/>
 				<RouterProvider router={router} />
-				<ReactQueryDevtools position='bottom-right' />
+				<ReactQueryDevtools position='top-right' />
 			</QueryClientProvider>
 		</ThemeProvider>
 	</React.StrictMode>
