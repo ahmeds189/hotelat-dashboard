@@ -1,10 +1,10 @@
-import { Dialog, DialogContent, DialogTrigger } from '@radix-ui/react-dialog'
-import { RoomsGrid } from './RoomsGrid'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
-import { PlusCircle } from 'lucide-react'
-import { RoomForm } from './RoomForm'
-import { useTheme } from '@/context/Theme'
 import { useRooms } from './hooks/useRooms'
+import { RoomForm } from './RoomForm'
+import { RoomsGrid } from './RoomsGrid'
+import { useTheme } from '@/context/Theme'
+import { PlusCircle } from 'lucide-react'
 
 const Page = () => {
 	const { dialogDisplay, setDialogDisplay } = useTheme()
