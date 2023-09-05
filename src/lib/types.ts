@@ -5,5 +5,5 @@ export type Room = {
 	rating: number
 	discount: number
 	description: string
-	image: string | File
+	image: string
 }

@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Loader } from 'lucide-react'
 import { useCreateRoom } from './hooks/useCreateRoom'
+import { useTheme } from '@/context/Theme'
+import { Room } from '@/lib/types'
 
 const Roomscheme = z.object({
 	price: z.coerce
@@ -25,11 +27,11 @@ const Roomscheme = z.object({
 	description: z
 		.string()
 		.min(10, { message: 'must be 10 or more characters long' }),
-	image: z.instanceof(File, { message: 'please upload an image' }),
 })
 
 export const RoomForm = () => {
 	const { create, isCreating } = useCreateRoom()
+	const { setDialogDisplay } = useTheme()
 	const isLoading = isCreating
 
 	const form = useForm<z.infer<typeof Roomscheme>>({
@@ -44,7 +46,19 @@ export const RoomForm = () => {
 	})
 
 	const onSubmit = (values: z.infer<typeof Roomscheme>) => {
-		create({ ...values, id: Math.floor(Math.random() * 1001) })
+		create(
+			{
+				...values,
+				id: Math.floor(Math.random() * 1001),
+				image: 'https://placehold.co/600x400',
+			},
+			{
+				onSuccess: () => {
+					setDialogDisplay(false)
+					form.reset()
+				},
+			}
+		)
 	}
 
 	return (
@@ -106,7 +120,6 @@ export const RoomForm = () => {
 						)}
 					/>
 				</div>
-
 				<Form.FormField
 					control={form.control}
 					name='description'
@@ -118,26 +131,6 @@ export const RoomForm = () => {
 									placeholder='descripe room features and details..'
 									className='resize-none'
 									{...field}
-								/>
-							</Form.FormControl>
-							<Form.FormMessage />
-						</Form.FormItem>
-					)}
-				/>
-				<Form.FormField
-					control={form.control}
-					name='image'
-					render={({ field: { onChange } }) => (
-						<Form.FormItem>
-							<Form.FormLabel>Image</Form.FormLabel>
-							<Form.FormControl>
-								<Input
-									accept='.jpg, .jpeg, .png'
-									type='file'
-									onChange={(e) =>
-										onChange(e.target.files ? e.target.files[0] : null)
-									}
-									className='file:text-foreground cursor-pointer'
 								/>
 							</Form.FormControl>
 							<Form.FormMessage />

@@ -10,9 +10,14 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { Loader, Trash } from 'lucide-react'
+import { useDeleteRoom } from './hooks/useDeleteRoom'
 
-export const DeleteRoom = () => {
-	const isLoading = false
+interface Props {
+	roomToDelete: number
+}
+
+export const DeleteRoom = ({ roomToDelete }: Props) => {
+	const { mutate, isLoading } = useDeleteRoom()
 
 	return (
 		<AlertDialog>
@@ -33,7 +38,7 @@ export const DeleteRoom = () => {
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
 					<Button
 						variant='destructive'
-						onClick={() => console.log('123')}
+						onClick={() => mutate(roomToDelete)}
 						disabled={isLoading}
 						className={`${isLoading ? 'flex items-center gap-3' : null}`}
 					>

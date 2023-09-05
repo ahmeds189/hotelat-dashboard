@@ -15,7 +15,7 @@ export const NewRoom = () => {
 					<span>Add new</span>
 				</Button>
 			</DialogTrigger>
-			<DialogContent className='w-[95vw] rounded-md'>
+			<DialogContent className='rounded-md'>
 				<RoomForm />
 			</DialogContent>
 		</Dialog>

@@ -3,24 +3,15 @@ import { toast } from 'react-toastify'
 import { keys } from '@/react-query/keys'
 import { supabase } from '@/supabase/supabase'
 
-async function deleteRoom(roomID: number, imageName: string): Promise<void> {
-	const { error } = await supabase.from('rooms').delete().eq('id', roomID)
-	const { error: storageError } = await supabase.storage
-		.from('hotelat-images')
-		.remove([imageName])
-	if (error) {
-		throw new Error(error.message)
-	}
-	if (storageError) {
-		throw new Error(storageError.message)
-	}
+async function deleteRoom(id: number): Promise<void> {
+	const { error } = await supabase.from('rooms').delete().eq('id', id)
+	if (error) throw new Error(error.message)
 }
 
-export function useDeleteRoom(roomID: number, imageName: string) {
+export function useDeleteRoom() {
 	const queryClient = useQueryClient()
-
 	const { mutate, isLoading } = useMutation({
-		mutationFn: () => deleteRoom(roomID, imageName),
+		mutationFn: deleteRoom,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: [keys.rooms] })
 			toast.success('successfully deleted')
