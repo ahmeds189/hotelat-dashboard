@@ -21,9 +21,7 @@ export const RoomCard = ({ room }: Props) => {
 	return (
 		<Card>
 			<CardHeader className='mb-auto'>
-				<div className='bg-[url(/placeholder.svg)] overflow-hidden rounded-md object-cover bg-center aspect-video w-full'>
-					<img src={image} alt={description} className='w-full aspect-video' />
-				</div>
+				<img src={image} alt={description} className='w-full mb-2 rounded-md' />
 				<CardDescription>{description}</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -52,7 +50,7 @@ export const RoomCard = ({ room }: Props) => {
 						<Star className='text-orange-400' />
 						<p className='mr-auto font-normal text-sm'>{rating} / 5</p>
 					</div>
-					<CardActions />
+					<CardActions room={room} />
 				</div>
 			</CardContent>
 		</Card>

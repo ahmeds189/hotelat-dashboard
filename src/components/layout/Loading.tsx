@@ -7,7 +7,7 @@ export const Loading = () => {
 	return (
 		<div
 			className={cn(
-				'block w-fit absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
+				'block w-fit bg-gray-200 dark:bg-indigo-950 p-3 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
 				isFetching ? 'block' : 'hidden'
 			)}
 		>
