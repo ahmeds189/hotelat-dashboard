@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Loader } from 'lucide-react'
 import { useCreateRoom } from './hooks/useCreateRoom'
-import { useTheme } from '@/context/Theme'
-import { Room } from '@/lib/types'
 
 const Roomscheme = z.object({
 	price: z.coerce
@@ -31,7 +29,6 @@ const Roomscheme = z.object({
 
 export const RoomForm = () => {
 	const { create, isCreating } = useCreateRoom()
-	const { setDialogDisplay } = useTheme()
 	const isLoading = isCreating
 
 	const form = useForm<z.infer<typeof Roomscheme>>({
@@ -53,10 +50,7 @@ export const RoomForm = () => {
 				image: 'https://placehold.co/600x400',
 			},
 			{
-				onSuccess: () => {
-					setDialogDisplay(false)
-					form.reset()
-				},
+				onSuccess: () => form.reset(),
 			}
 		)
 	}

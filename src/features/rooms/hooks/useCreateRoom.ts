@@ -3,6 +3,7 @@ import { Room } from '@/lib/types'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { keys } from '@/react-query/keys'
+import { useTheme } from '@/context/Theme'
 
 async function createRoom(room: Room): Promise<Room[]> {
 	const { data, error } = await supabase
@@ -17,12 +18,14 @@ async function createRoom(room: Room): Promise<Room[]> {
 
 export function useCreateRoom() {
 	const queryClient = useQueryClient()
+	const { setDialogDisplay } = useTheme()
 
 	const { mutate: create, isLoading: isCreating } = useMutation({
 		mutationFn: createRoom,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: [keys.rooms] })
 			toast.success('successfully created')
+			setDialogDisplay(false)
 		},
 	})
 

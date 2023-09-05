@@ -12,7 +12,7 @@ import { Loading } from '@/components/layout/Loading'
 export const Layout = () => {
 	return (
 		<div className='grid grid-rows-[4.2rem_1fr] items-start md:grid-cols-[15rem_1fr] relative'>
-			<div className='absolute z-10 top-2 left-1/2 -translate-x-1/2'>
+			<div className='absolute z-10 top-3 left-1/2 -translate-x-1/2'>
 				<Loading />
 			</div>
 
