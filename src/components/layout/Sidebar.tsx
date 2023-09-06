@@ -35,14 +35,14 @@ const overview: Routes[] = [
 ]
 const management: Routes[] = [
 	{
-		path: 'staff',
+		path: 'options',
 		id: 4,
-		icon: <Users2 />,
+		icon: <Settings />,
 	},
 	{
-		path: 'settings',
+		path: 'staff',
 		id: 5,
-		icon: <Settings />,
+		icon: <Users2 />,
 	},
 ]
 
