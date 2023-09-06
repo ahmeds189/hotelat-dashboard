@@ -6,9 +6,8 @@ import { supabase } from '@/supabase'
 async function getRooms(): Promise<Room[]> {
 	const { data, error } = await supabase.from('rooms').select('*')
 
-	if (error) {
-		throw new Error(error.message)
-	}
+	if (error) throw new Error(error.message)
+
 	return data
 }
 
