@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ThemeProvider } from '@/context/Theme'
 import { ToastContainer } from 'react-toastify'
@@ -14,6 +13,11 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+		},
+	},
 	queryCache: new QueryCache({
 		onError: (error) => {
 			if (error instanceof Error) toast.error(error.message)
@@ -68,13 +72,14 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
-		<ThemeProvider>
-			<QueryClientProvider client={queryClient}>
-				<ToastContainer transition={Slide} />
-				<ReactQueryDevtools position='top-right' />
-				<RouterProvider router={router} />
-			</QueryClientProvider>
-		</ThemeProvider>
-	</React.StrictMode>
+	<ThemeProvider>
+		<QueryClientProvider client={queryClient}>
+			<ToastContainer transition={Slide} />
+			<ReactQueryDevtools
+				position='bottom-left'
+				toggleButtonProps={{ className: 'scale-[0.7]' }}
+			/>
+			<RouterProvider router={router} />
+		</QueryClientProvider>
+	</ThemeProvider>
 )

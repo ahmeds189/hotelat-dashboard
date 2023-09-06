@@ -1,4 +1,11 @@
-import * as Form from '@/components/ui/form'
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormMessage,
+	FormItem,
+	FormLabel,
+} from '@/components/ui/form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -7,6 +14,9 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Loader } from 'lucide-react'
 import { useCreateRoom } from './hooks/useCreateRoom'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { ReactNode, useState } from 'react'
+import { Room } from '@/lib/types'
 
 const Roomscheme = z.object({
 	price: z.coerce
@@ -27,9 +37,14 @@ const Roomscheme = z.object({
 		.min(10, { message: 'must be 10 or more characters long' }),
 })
 
-export const RoomForm = () => {
-	const { create, isCreating } = useCreateRoom()
-	const isLoading = isCreating
+interface Props {
+	children: ReactNode
+	roomValues?: Room
+}
+
+export const RoomForm = ({ children }: Props) => {
+	const [open, setOpen] = useState(false)
+	const { mutate, isLoading } = useCreateRoom()
 
 	const form = useForm<z.infer<typeof Roomscheme>>({
 		resolver: zodResolver(Roomscheme),
@@ -43,103 +58,103 @@ export const RoomForm = () => {
 	})
 
 	const onSubmit = (values: z.infer<typeof Roomscheme>) => {
-		create(
-			{
-				...values,
-				id: Math.floor(Math.random() * 1001),
-				image: 'https://placehold.co/600x400',
-			},
-			{
-				onSuccess: () => form.reset(),
-			}
-		)
+		mutate({
+			...values,
+			id: Math.floor(Math.random() * 1001),
+			image: 'https://placehold.co/600x400',
+		})
 	}
 
 	return (
-		<Form.Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-				<div className='flex flex-col gap-3 sm:flex-row'>
-					<Form.FormField
-						control={form.control}
-						name='price'
-						render={({ field }) => (
-							<Form.FormItem className='basis-1/2'>
-								<Form.FormLabel>Room Price</Form.FormLabel>
-								<Form.FormControl>
-									<Input placeholder='0' {...field} />
-								</Form.FormControl>
-								<Form.FormMessage />
-							</Form.FormItem>
-						)}
-					/>
-					<Form.FormField
-						control={form.control}
-						name='capacity'
-						render={({ field }) => (
-							<Form.FormItem className='basis-1/2'>
-								<Form.FormLabel>Capacity</Form.FormLabel>
-								<Form.FormControl>
-									<Input placeholder='0' {...field} />
-								</Form.FormControl>
-								<Form.FormMessage />
-							</Form.FormItem>
-						)}
-					/>
-				</div>
-				<div className='flex flex-col gap-3 sm:flex-row'>
-					<Form.FormField
-						control={form.control}
-						name='discount'
-						render={({ field }) => (
-							<Form.FormItem className='basis-1/2'>
-								<Form.FormLabel>Discount</Form.FormLabel>
-								<Form.FormControl>
-									<Input placeholder='0' {...field} />
-								</Form.FormControl>
-								<Form.FormMessage />
-							</Form.FormItem>
-						)}
-					/>
-					<Form.FormField
-						control={form.control}
-						name='rating'
-						render={({ field }) => (
-							<Form.FormItem className='basis-1/2'>
-								<Form.FormLabel>Rating</Form.FormLabel>
-								<Form.FormControl>
-									<Input placeholder='1' {...field} />
-								</Form.FormControl>
-								<Form.FormMessage />
-							</Form.FormItem>
-						)}
-					/>
-				</div>
-				<Form.FormField
-					control={form.control}
-					name='description'
-					render={({ field }) => (
-						<Form.FormItem>
-							<Form.FormLabel>Description</Form.FormLabel>
-							<Form.FormControl>
-								<Textarea
-									placeholder='descripe room features and details..'
-									className='resize-none'
-									{...field}
-								/>
-							</Form.FormControl>
-							<Form.FormMessage />
-						</Form.FormItem>
-					)}
-				/>
-				<Button
-					type='submit'
-					disabled={isLoading}
-					className={`${isLoading ? 'flex items-center gap-3' : null}`}
-				>
-					{isLoading && <Loader className='animate-spin' />}
-					Submit
-				</Button>
-			</form>
-		</Form.Form>
+		<Dialog open={open} onOpenChange={setOpen}>
+			<DialogTrigger asChild>{children}</DialogTrigger>
+			<DialogContent>
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+						<div className='flex flex-col gap-3 sm:flex-row'>
+							<FormField
+								control={form.control}
+								name='price'
+								render={({ field }) => (
+									<FormItem className='basis-1/2'>
+										<FormLabel>Room Price</FormLabel>
+										<FormControl>
+											<Input placeholder='0' {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name='capacity'
+								render={({ field }) => (
+									<FormItem className='basis-1/2'>
+										<FormLabel>Capacity</FormLabel>
+										<FormControl>
+											<Input placeholder='0' {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+						<div className='flex flex-col gap-3 sm:flex-row'>
+							<FormField
+								control={form.control}
+								name='discount'
+								render={({ field }) => (
+									<FormItem className='basis-1/2'>
+										<FormLabel>Discount</FormLabel>
+										<FormControl>
+											<Input placeholder='0' {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name='rating'
+								render={({ field }) => (
+									<FormItem className='basis-1/2'>
+										<FormLabel>Rating</FormLabel>
+										<FormControl>
+											<Input placeholder='1' {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+						<FormField
+							control={form.control}
+							name='description'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Description</FormLabel>
+									<FormControl>
+										<Textarea
+											placeholder='descripe room features and details..'
+											className='resize-none'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<Button
+							type='submit'
+							disabled={isLoading}
+							className={`${isLoading ? 'flex items-center gap-3' : null}`}
+						>
+							{isLoading && <Loader className='animate-spin' />}
+							Submit
+						</Button>
+					</form>
+				</Form>
+			</DialogContent>
+		</Dialog>
 	)
 }

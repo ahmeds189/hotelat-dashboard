@@ -8,9 +8,9 @@ import { Badge } from '@/components/ui/badge'
 import { calcDicsount } from '@/lib/utils'
 import { Room } from '@/lib/types'
 import { Bed, Edit, Star } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { DeleteRoom } from './DeleteRoom'
-import { useTheme } from '@/context/Theme'
+import { Button } from '@/components/ui/button'
+import { RoomForm } from './RoomForm'
 
 interface Props {
 	room: Room
@@ -19,7 +19,6 @@ interface Props {
 export const RoomCard = ({ room }: Props) => {
 	const { description, price, capacity, rating, discount, image } = room
 	const newPrice = calcDicsount(price, discount)
-	const { setDialogDisplay } = useTheme()
 
 	return (
 		<Card>
@@ -55,13 +54,11 @@ export const RoomCard = ({ room }: Props) => {
 					</div>
 
 					<div className='flex space-x-3'>
-						<Button
-							size='icon'
-							variant='outline'
-							onClick={() => setDialogDisplay(true)}
-						>
-							<Edit />
-						</Button>
+						<RoomForm>
+							<Button variant='outline' size='icon'>
+								<Edit />
+							</Button>
+						</RoomForm>
 						<DeleteRoom roomToDelete={room.id} />
 					</div>
 				</div>

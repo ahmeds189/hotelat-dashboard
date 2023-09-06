@@ -12,8 +12,6 @@ type ThemeProviderState = {
 	setTheme: (theme: string) => void
 	sheetDisplay: boolean
 	setSheetDisply: (sheetDisplay: boolean) => void
-	dialogDisplay: boolean
-	setDialogDisplay: (dialogDisplay: boolean) => void
 }
 
 const initialState = {
@@ -21,8 +19,6 @@ const initialState = {
 	setTheme: () => null,
 	sheetDisplay: false,
 	setSheetDisply: () => null,
-	dialogDisplay: false,
-	setDialogDisplay: () => null,
 }
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
@@ -37,7 +33,6 @@ export function ThemeProvider({
 		() => localStorage.getItem(storageKey) || defaultTheme
 	)
 	const [sheetDisplay, setSheetDisply] = useState(false)
-	const [dialogDisplay, setDialogDisplay] = useState(false)
 	const matches = useMediaQuery('(min-width: 768px)')
 
 	if (matches && sheetDisplay) setSheetDisply(false)
@@ -68,8 +63,6 @@ export function ThemeProvider({
 		},
 		sheetDisplay,
 		setSheetDisply: () => setSheetDisply(!sheetDisplay),
-		dialogDisplay,
-		setDialogDisplay: () => setDialogDisplay(!dialogDisplay),
 	}
 
 	return (
