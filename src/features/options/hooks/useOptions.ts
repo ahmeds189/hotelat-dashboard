@@ -12,10 +12,10 @@ export async function getSettings(): Promise<Options[]> {
 }
 
 export function useOptions() {
-	const { data: options, isFetching } = useQuery({
+	const { data: options } = useQuery({
 		queryKey: [queryKeys.options],
 		queryFn: getSettings,
 	})
 
-	return { options, isFetching }
+	return { options }
 }

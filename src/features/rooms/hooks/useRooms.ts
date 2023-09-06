@@ -12,10 +12,10 @@ async function getRooms(): Promise<Room[]> {
 }
 
 export function useRooms() {
-	const { data: rooms, isFetching } = useQuery({
+	const { data: rooms } = useQuery({
 		queryKey: [queryKeys.rooms],
 		queryFn: getRooms,
 	})
 
-	return { rooms, isFetching }
+	return { rooms }
 }
