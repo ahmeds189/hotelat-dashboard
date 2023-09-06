@@ -34,6 +34,7 @@ import { Bookings } from './routes/Bookings'
 import { Settings } from './routes/Settings'
 import { Dashboard } from './routes/Dashboard'
 import RoomsPage from '@/features/rooms/Page'
+import OptionsPage from '@/features/options/Page'
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -60,8 +61,8 @@ const router = createBrowserRouter([
 				element: <Staff />,
 			},
 			{
-				path: 'settings',
-				element: <Settings />,
+				path: 'options',
+				element: <OptionsPage />,
 			},
 			{
 				path: 'account',
