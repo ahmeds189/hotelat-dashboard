@@ -74,7 +74,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<ThemeProvider>
 		<QueryClientProvider client={queryClient}>
-			<ToastContainer transition={Slide} />
+			<ToastContainer transition={Slide} hideProgressBar />
 			<ReactQueryDevtools
 				position='bottom-left'
 				toggleButtonProps={{ className: 'scale-[0.7]' }}
