@@ -1,11 +1,14 @@
-import { useOptions } from './hooks/useOptions'
+import { OptionsForm } from './OptionsForm'
 
 const Page = () => {
-	const { options = [] } = useOptions()
-
 	return (
 		<div>
-			<h1 className='font-semibold text-3xl'>Bookings Options</h1>
+			<h1 className='font-semibold text-3xl text-center sm:text-left'>
+				Bookings Options
+			</h1>
+			<div className='mt-8 p-4 md:p-6 rounded-lg'>
+				<OptionsForm />
+			</div>
 		</div>
 	)
 }
