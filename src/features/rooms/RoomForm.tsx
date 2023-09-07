@@ -30,8 +30,8 @@ const Roomscheme = z.object({
 		.max(5, { message: 'must be less than or equal to 5' }),
 	capacity: z.coerce
 		.number()
-		.min(1, { message: 'must be greater than or equal to 1 person' })
-		.max(10, { message: 'must be less than or equal to 10 persons' }),
+		.min(1, { message: 'at least 1 person per booking' })
+		.max(6, { message: 'maximum capacity is 6 persons per booking' }),
 	description: z
 		.string()
 		.min(10, { message: 'must be 10 or more characters long' }),

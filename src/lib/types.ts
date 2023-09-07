@@ -10,8 +10,8 @@ export type Room = {
 
 export type Options = {
 	id: number
+	breakfast_price: number
 	min_days: number
 	max_days: number
-	max_guests_per_bookings: number
-	breakfast_Price: number
+	max_guests_per_booking: number
 }
