@@ -58,11 +58,14 @@ export const RoomForm = ({ children }: Props) => {
 	})
 
 	const onSubmit = (values: z.infer<typeof Roomscheme>) => {
-		mutate({
-			...values,
-			id: Math.floor(Math.random() * 1001),
-			image: 'https://placehold.co/600x400',
-		})
+		mutate(
+			{
+				...values,
+				id: Math.floor(Math.random() * 1001),
+				image: 'https://placehold.co/600x400',
+			},
+			{ onSuccess: () => setOpen(false) }
+		)
 	}
 
 	return (
